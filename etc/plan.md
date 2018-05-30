@@ -8,22 +8,21 @@ Step 4: Repeat
 
 ## Backend API
 
-### Authentication
-### Registration
-### Computer authorization?
-### Payments
-### Invite operators
+* Authentication
+* Registration
+* Computer authorization?
+* Payments
+* Invite operators
 
 ### Private data records
-* *C*reate
-* *R*ead
-* *U*pdate
-* *D*elete
+* **C**reate
+* **R**ead
+* **U**pdate
+* **D**elete
 
 ## Frontend features
 
-### define columns with drag and drop
-* provide a few common business templates
+* define columns with drag and drop (provide a few common business templates)
 ** minimal
 ** kinder garden
 ** custom
