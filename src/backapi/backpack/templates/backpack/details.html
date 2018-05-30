@@ -1,0 +1,13 @@
+{% if person %}
+	<table width="50%" border="1px">
+		<thead><tr>
+			<th>key</th>
+			<th>value</th>
+		</tr></thead>
+	    {% for key,val in person.items %}
+	        <tr> <td>{{ key }}</td> <td>{{ val }}</td> </tr>
+	    {% endfor %}
+	</table>
+{% else %}
+    <p>Oops! We have a missing person case.</p>
+{% endif %}

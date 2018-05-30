@@ -1,0 +1,9 @@
+{% if has_people %}
+    <ul>
+    {% for dude in people %}
+        <li><a href="{% url 'detail' dude.id %}">{{ dude.full_name }}</a>, {{dude.email}}, {{dude.phone}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no people on your list.</p>
+{% endif %}
