@@ -17,3 +17,11 @@ def details(request, private_person_id):
 		'person' : model_to_dict(dude)
 	}
 	return render(request, 'backpack/details.html', context)
+
+
+def user_home(request):
+	all_dudes = PrivatePerson.objects.all()
+	context = {
+		'people' : all_dudes
+	}
+	return render(request, 'backpack/user_home.html', context)
