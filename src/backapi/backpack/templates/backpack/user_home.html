@@ -44,35 +44,47 @@
 </head>
 <body>
 <div id="table" class="table-editable">
-    <span class="table-add glyphicon glyphicon-plus"></span>
     <table class="table">
       <tr>
-        <th>Name</th>
-        <th>Value</th>
-        <th></th>
-        <th></th>
+        <th>Numele</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Facebook</th>
+        <th>Telefon (parinte)</th>
+        <th>Email (parinte)</th>
+        <th>Facebook (parinte)</th>
+        <th>actiune</th>
       </tr>
+
+      {% for dude in people %}
+          <tr>
+            <td><a href="{% url 'detail' dude.id %}">{{ dude.full_name }}</a></td>
+            <td contenteditable="true">{{ dude.phone }}</td>
+            <td contenteditable="true">{{ dude.email }}</td>
+            <td contenteditable="true">{{ dude.facebook_url }}</td>
+            <td contenteditable="true">{{ dude.parent_phone }}</td>
+            <td contenteditable="true">{{ dude.parent_email }}</td>
+            <td contenteditable="true">{{ dude.parent_facebook_url }}</td>
+            <td>
+              <span class="table-remove glyphicon glyphicon-remove"></span>
+            </td>
+          </tr>
+      {% endfor %}
+
       <tr>
-        <td contenteditable="true">Stir Fry</td>
-        <td contenteditable="true">stir-fry</td>
-        <td>
-          <span class="table-remove glyphicon glyphicon-remove"></span>
-        </td>
-        <td>
-          <span class="table-up glyphicon glyphicon-arrow-up"></span>
-          <span class="table-down glyphicon glyphicon-arrow-down"></span>
-        </td>
+        <td><span class="table-add glyphicon glyphicon-plus"></span></td>
       </tr>
+
       <!-- This is our clonable table line -->
       <tr class="hide">
-        <td contenteditable="true">Untitled</td>
-        <td contenteditable="true">undefined</td>
+        <td contenteditable="true">da un nume la micut</td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
         <td>
           <span class="table-remove glyphicon glyphicon-remove"></span>
-        </td>
-        <td>
-          <span class="table-up glyphicon glyphicon-arrow-up"></span>
-          <span class="table-down glyphicon glyphicon-arrow-down"></span>
         </td>
       </tr>
     </table>
