@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html lang="ro">
+<head>
+    <meta charset="utf-8">
+
+    <title>GRDP Tribune</title>
+    <meta name="description" content="secure data for the people">
+    <meta name="author" content="fibonet.ro">
+
+    <link rel="stylesheet" href="table_style.css?v=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <script src="angular.min.js"></script>
+    <h1>This should look like a title</h1>
+    <h3>Vraja marii in coltul garii</h3>
+    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    <h3>Anyway, here is the app:</h3>
+
+    <script src="sub-face.js"></script>
+    <div ng-app="grdp-demo" ng-controller="bossman">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nume</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Adresa</th>
+                    <th scope="col">Varsta</th>
+                    <th scope="col">Actiune</th>
+                  </tr>
+                </thead>
+        
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>                
+                <tr ng-repeat="contact in model.contacts" ng-include="getTemplate(contact)">
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <script type="text/ng-template" id="display">
+            <td>{{contact.id}}</td>
+            <td>{{contact.name}}</td>
+            <td>{{contact.mail}}</td>
+            <td>{{contact.phone}}</td>
+            <td>{{contact.address}}</td>
+            <td>{{contact.age}}</td>
+            <td>
+                <button ng-click="editContact(contact)">Edit</button>
+            </td>
+        </script>
+        <script type="text/ng-template" id="edit">
+            <td>{{contact.id}}</td>
+            <td><input type="text" ng-model="model.selected.name" /></td>
+            <td><input type="text" ng-model="model.selected.mail" /></td>
+            <td><input type="text" ng-model="model.selected.phone" /></td>
+            <td><input type="text" ng-model="model.selected.address" /></td>
+            <td><input type="text" ng-model="model.selected.age" /></td>
+            <td>
+                <button ng-click="saveContact($index)">Save</button>
+                <button ng-click="reset()">Cancel</button>
+            </td>
+        </script>
+    </div>
+
+</body>
+</html>
