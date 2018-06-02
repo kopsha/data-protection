@@ -40,6 +40,7 @@ SYSTEM_APPS = [
 
 LOCAL_APPS = [
     'backpack.apps.BackpackConfig',
+    'django_extensions',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + LOCAL_APPS
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'www.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'home/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
+
+#authentication routes
+LOGIN_REDIRECT_URL = '/views/user_home'
+LOGIN_URL = '/login'
