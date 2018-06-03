@@ -1,0 +1,9 @@
+<h2>Let there be an awesome website</h2>
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>Welcome stranger. I don't know who you are, so please <a href="{% url 'login' %}">login</a> </p>
+{% endif %}
+{% endblock %}
