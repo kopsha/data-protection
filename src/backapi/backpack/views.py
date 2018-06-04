@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, reverse
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from backpack.models import PrivatePerson
+from backpack.models import PPForm
 
 
 @login_required
@@ -14,16 +16,6 @@ def index(request):
 	}
 	return render(request, 'backpack/index.html', context)
 
-
-@login_required
-def details(request, private_person_id):
-	dude = PrivatePerson.objects.get(pk=private_person_id)
-	context = {
-		'person' : model_to_dict(dude)
-	}
-	return render(request, 'backpack/details.html', context)
-
-
 @login_required
 def user_home(request):
 	all_dudes = PrivatePerson.objects.all()
@@ -32,14 +24,19 @@ def user_home(request):
 	}
 	return render(request, 'backpack/user_home.html', context)
 
-def save_private_data(request):
+@login_required
+def private_details(request, id=None):
+	if id:
+		person = get_object_or_404(PrivatePerson, pk=id)
+	else:
+		person = PrivatePerson()
 
-	print( dir(request.context) )
-	print( request.context )
+	form = PPForm(request.POST or None, instance=person)
 
-	all_dudes = PrivatePerson.objects.all()
-	context = {
-		'people': all_dudes,
-		'was_saved': True,
-	}
-	return render(request, 'backpack/user_home.html', context)
+	if request.method == 'POST' and form.is_valid():
+		form.save()
+		redirect_url = reverse('view_person', args=[id])
+		return redirect(redirect_url)
+
+	print( 'show dude')
+	return render(request, 'backpack/details.html', {'form':form})

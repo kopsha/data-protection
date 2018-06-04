@@ -1,8 +1,9 @@
-{% if person %}
+{% if form %}
 
-	<form action="{% url 'save_private_data' %}">
+	<form action="update/" method="post">
 		{% csrf_token %}
-		{{ form.as_table }}
+		{{ form.as_ul }}
+		<input type="submit" value="Trimite" />
 	</form>
 
 {% else %}

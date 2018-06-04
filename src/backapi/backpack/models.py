@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.forms import ModelForm
 
 import datetime
 
@@ -19,3 +20,18 @@ class PrivatePerson(models.Model):
 
 	def is_recent(self):
 		return self.joined >= timezone.now() - datetime.timedelta(days=1)
+
+
+class PPForm(ModelForm):
+	class Meta:
+		model = PrivatePerson
+		fields = [
+			'full_name',
+			'phone',
+			'email',
+			'facebook_url',
+			'parent_phone',
+			'parent_email',
+			'parent_facebook_url',
+			'address'
+		]
