@@ -1,11 +1,11 @@
-{% if form %}
+<p>this dude is new: {{ is_new }}</p>
 
-	<form action="update/" method="post">
-		{% csrf_token %}
-		{{ form.as_ul }}
-		<input type="submit" value="Trimite" />
-	</form>
-
+{% if is_new %}
+<form action="" method="post">
 {% else %}
-    <p>Oops! We have a missing person case.</p>
+<form action="update/" method="post">
 {% endif %}
+	{% csrf_token %}
+	{{ form.as_ul }}
+	<input type="submit" value="Trimite" />
+</form>

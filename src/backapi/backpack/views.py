@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 from backpack.models import PrivatePerson
-from backpack.models import PPForm
+from backpack.models import PrivatePersonForm
 
 
 @login_required
@@ -31,12 +31,16 @@ def private_details(request, id=None):
 	else:
 		person = PrivatePerson()
 
-	form = PPForm(request.POST or None, instance=person)
+
+	form = PrivatePersonForm(request.POST or None, instance=person)
 
 	if request.method == 'POST' and form.is_valid():
-		form.save()
-		redirect_url = reverse('view_person', args=[id])
+		baby = form.save()
+
+		print( 'form baby: {}'.format(form.cleaned_data) )
+		print( 'actual baby: {} {}'.format(baby.id, baby.full_name) )
+
+		redirect_url = reverse('view_person', args=[baby.id])
 		return redirect(redirect_url)
 
-	print( 'show dude')
-	return render(request, 'backpack/details.html', {'form':form})
+	return render(request, 'backpack/details.html', {'form':form, 'is_new':(id is None)})

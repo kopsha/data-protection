@@ -22,7 +22,7 @@ class PrivatePerson(models.Model):
 		return self.joined >= timezone.now() - datetime.timedelta(days=1)
 
 
-class PPForm(ModelForm):
+class PrivatePersonForm(ModelForm):
 	class Meta:
 		model = PrivatePerson
 		fields = [
