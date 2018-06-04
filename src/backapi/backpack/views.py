@@ -31,3 +31,15 @@ def user_home(request):
 		'people': all_dudes
 	}
 	return render(request, 'backpack/user_home.html', context)
+
+def save_private_data(request):
+
+	print( dir(request.context) )
+	print( request.context )
+
+	all_dudes = PrivatePerson.objects.all()
+	context = {
+		'people': all_dudes,
+		'was_saved': True,
+	}
+	return render(request, 'backpack/user_home.html', context)
