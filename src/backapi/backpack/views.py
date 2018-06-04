@@ -31,16 +31,10 @@ def private_details(request, id=None):
 	else:
 		person = PrivatePerson()
 
-
 	form = PrivatePersonForm(request.POST or None, instance=person)
 
 	if request.method == 'POST' and form.is_valid():
-		baby = form.save()
-
-		print( 'form baby: {}'.format(form.cleaned_data) )
-		print( 'actual baby: {} {}'.format(baby.id, baby.full_name) )
-
-		redirect_url = reverse('view_person', args=[baby.id])
-		return redirect(redirect_url)
+		form.save()
+		return redirect(reverse('user_home'))
 
 	return render(request, 'backpack/details.html', {'form':form, 'is_new':(id is None)})
