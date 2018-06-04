@@ -42,8 +42,17 @@
 }
 	</style>
 </head>
-<body>
-<div id="table" class="table-editable">
+<body style="padding: 34px">
+<div>
+  <table width="92%">
+    <tr>
+      <td width="62%"><h4>Buna {{ user.first_name }} {{ user.last_name }},</h4></td>
+      <td width="38%" align="right" style="padding: 25px;"><button class="btn"><a href="{% url 'logout' %}">logout</a></button></td>
+    </tr>
+  </table>
+  <p>Iata lista super privata a clientilor tai:</p>
+</div>
+<div id="table" class="table-editable" style="width: 92%;">
     <table class="table">
       <tr>
         <th>Numele</th>
@@ -152,7 +161,7 @@ $BTN.click(function () {
     </script>
   </div>
 
-  <button id="export-btn" class="btn btn-primary">Export Data</button>
+  <button id="export-btn" class="btn btn-primary">Salveaza modificarile</button>
   <p id="export"></p>
 </div>
 </body>

@@ -28,6 +28,6 @@ def details(request, private_person_id):
 def user_home(request):
 	all_dudes = PrivatePerson.objects.all()
 	context = {
-		'people' : all_dudes
+		'people': all_dudes
 	}
 	return render(request, 'backpack/user_home.html', context)
