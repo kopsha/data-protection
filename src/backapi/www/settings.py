@@ -33,7 +33,6 @@ SYSTEM_APPS = [
 
 LOCAL_APPS = [
     'backpack.apps.BackpackConfig',
-    'home.apps.HomeConfig'
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + LOCAL_APPS
