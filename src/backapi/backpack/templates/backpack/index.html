@@ -8,7 +8,7 @@
 
 	{% if user.is_authenticated %}
 		<p>Bine ai venit {{ user.full_name }}</p>
-		<p><a href="{% url 'user_home' %}">la biroul tau privat.</a></p>
+		<p><a class="btn btn-info" role="button" href="{% url 'user_home' %}">la biroul tau privat.</a></p>
 	{% else %}
 		<p>Hai spune-ne cine esti straine?</p>
 
@@ -18,7 +18,7 @@
 			{{ form.as_table }}
 		</table>
 
-		<button type="submit">Identificare</button>
+		<button class="btn btn-info" type="submit">Identificare</button>
 	</form>
 
 	{% endif %}
