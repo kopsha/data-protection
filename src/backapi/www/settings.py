@@ -115,5 +115,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #authentication routes
-LOGIN_REDIRECT_URL = '/views/user_home'
-LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/user_home/'
+LOGIN_URL = '/'
