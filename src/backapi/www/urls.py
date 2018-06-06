@@ -18,6 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('views/', include('backpack.urls')),
-    path('', include('home.urls')),
+    path('', include('backpack.urls')),
 ]

@@ -2,19 +2,19 @@ from django.shortcuts import redirect, render, reverse
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import logout
 
 from backpack.models import PrivatePerson
 from backpack.models import PrivatePersonForm
 
 
-@login_required
 def index(request):
-	all_dudes = PrivatePerson.objects.all()
-	context = {
-		'has_people' : len(all_dudes)>0,
-		'people' : all_dudes
-	}
+	context = {}
 	return render(request, 'backpack/index.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
 
 @login_required
 def user_home(request):
