@@ -5,6 +5,12 @@ from django_cryptography.fields import encrypt
 
 import datetime
 
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA256
+from base64 import b64decode
+
+
 class PrivatePerson(models.Model):
 	"""store sensitive information for a single person"""
 	full_name = encrypt(models.CharField(max_length=254))
@@ -36,3 +42,10 @@ class PrivatePersonForm(ModelForm):
 			'parent_facebook_url',
 			'address'
 		]
+	def decrypt_email(self,email):
+		f = open('privatekey.pem','r')
+		key = RSA.importKey(f.read())
+		cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
+		decrypted_message = cipher.decrypt(b64decode(email))
+		print(decrypted_message)
+		return decrypted_message

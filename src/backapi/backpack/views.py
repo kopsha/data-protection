@@ -33,8 +33,13 @@ def private_details(request, id=None):
 
 	form = PrivatePersonForm(request.POST or None, instance=person)
 
-	if request.method == 'POST' and form.is_valid():
-		form.save()
+	if request.method == 'POST': #and form.is_valid():
+		post = request.POST.copy()
+		post['email'] = form.decrypt_email(post['email'])
+		request.POST = post
+		form = PrivatePersonForm(request.POST or None, instance=person)
+		if form.is_valid():
+			form.save()
 		return redirect(reverse('user_home'))
 
 	return render(request, 'backpack/details.html', {'form':form, 'is_new':(id is None)})
