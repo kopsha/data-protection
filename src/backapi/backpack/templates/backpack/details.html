@@ -1,6 +1,6 @@
 {% extends "./base.html" %}
 
-{% block content %}                
+{% block content %}
 
 {% load static %}
 <script  type="text/javascript"  src="{% static 'backpack/rsa_lab.js' %}"></script>  
@@ -8,7 +8,7 @@
 	<p align="right"><a class="btn btn-info" role="button" href="{% url 'user_home' %}">inapoi</a></p>
 	<p>
 		{% if is_new %}
-		<form action="" method="post" id = "myform">
+		<form action="" method="post" id = "id_form_person">
 		{% else %}
 		<form action="update/" method="post" id = "id_form_person">
 		{% endif %}
