@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% load static %}
+<script  type="text/javascript"  src="{% static 'backpack/rsa_lab.js' %}"></script>  
+ 
 <p align="right" class="widget">
     <a class="btn btn-info" role="button" href="{% url 'logout' %}">logout</a>
 </p>
@@ -22,7 +25,7 @@
           <tr>
             <td><a href="{% url 'view_person' dude.id %}">{{ dude.full_name }}</a></td>
             <td>{{ dude.phone }}</td>
-            <td>{{ dude.email }}</td>
+            <td><script>document.write(decrypt('{{ privk }}','{{ dude.email }}'))</script></td>
             <td>{{ dude.facebook_url }}</td>
             <td>{{ dude.parent_phone }}</td>
             <td>{{ dude.parent_email }}</td>

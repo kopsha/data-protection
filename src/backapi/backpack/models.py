@@ -42,10 +42,3 @@ class PrivatePersonForm(ModelForm):
 			'parent_facebook_url',
 			'address'
 		]
-	def decrypt_email(self,email):
-		f = open('privatekey.pem','r')
-		key = RSA.importKey(f.read())
-		cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
-		decrypted_message = cipher.decrypt(b64decode(email))
-		print(decrypted_message)
-		return decrypted_message

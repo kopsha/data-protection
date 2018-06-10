@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 
 from backpack.models import PrivatePerson
 from backpack.models import PrivatePersonForm
-
+from backpack import rsa_lab
 
 def index(request):
 	context = {}
@@ -18,9 +18,12 @@ def logout_view(request):
 
 @login_required
 def user_home(request):
-	all_dudes = PrivatePerson.objects.all()
+	all_dudes = list(PrivatePerson.objects.all())
+	for person in all_dudes:
+		person.email = rsa_lab.encrypt(rsa_lab.get_public_key_backend(), str.encode(person.email)).decode("utf-8")
 	context = {
-		'people': all_dudes
+		'people': all_dudes,
+		'privk':rsa_lab.get_private_key_backend()
 	}
 	return render(request, 'backpack/user_home.html', context)
 
@@ -33,13 +36,14 @@ def private_details(request, id=None):
 
 	form = PrivatePersonForm(request.POST or None, instance=person)
 
-	if request.method == 'POST': #and form.is_valid():
+	if request.method == 'POST': 
 		post = request.POST.copy()
-		post['email'] = form.decrypt_email(post['email'])
+		post['email'] = rsa_lab.decrypt(rsa_lab.get_private_key_client(), post['email'])
 		request.POST = post
 		form = PrivatePersonForm(request.POST or None, instance=person)
 		if form.is_valid():
 			form.save()
 		return redirect(reverse('user_home'))
 
-	return render(request, 'backpack/details.html', {'form':form, 'is_new':(id is None)})
+	form['email'].initial = rsa_lab.encrypt(rsa_lab.get_public_key_backend(), str.encode(form['email'].value())).decode("utf-8")
+	return render(request, 'backpack/details.html', {'form':form, 'privk':rsa_lab.get_private_key_backend(),'pubk':rsa_lab.get_public_key_client(), 'is_new':(id is None)})

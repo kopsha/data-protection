@@ -2,47 +2,30 @@
 
 {% block content %}                
 
+{% load static %}
+<script  type="text/javascript"  src="{% static 'backpack/rsa_lab.js' %}"></script>  
+
 	<p align="right"><a class="btn btn-info" role="button" href="{% url 'user_home' %}">inapoi</a></p>
 	<p>
 		{% if is_new %}
 		<form action="" method="post" id = "myform">
 		{% else %}
-		<form action="update/" method="post" id = "myform">
+		<form action="update/" method="post" id = "id_form_person">
 		{% endif %}
 			{% csrf_token %}
 			<table>
-			<!-- {{ form.as_table }} -->
-			  <table border="1">
-				{% for field in form.visible_fields %}
-				  <tr>
-					<th>{{ field.label_tag }}</th>
-					<td>
-					  {{ field.errors }}
-					  {{ field }}
-					  {{ field.help_text }}
-					</td>
-				  </tr>
-				{% endfor %}
-			  </table>
+			{{ form.as_table }}
 			</table>
 			<input type="submit" class="btn btn-info" value="Salveaza" />
 		</form>
 	</p>
 <script>
-	$('#myform').submit(function() {
-		var pkstr = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC1lHjrxR/GOvBzkSo5Fzf+gsKv/TfdVZytQwXU86e6LuFsdo1c5eXG4TLtCNFlZusCSI3En2dwK/DGIekC9hARRQp0UGx66Z+0iTAexrWmgcUevoscNAMtWYGkxLiR+tT14vO0bv7FcFvROr8uHwYic1nbkmCQPeD1ACwY9rGsQwIDAQAB-----END PUBLIC KEY-----'
-		var publicKey = forge.pki.publicKeyFromPem(pkstr);
+	$(document).ready(function() {
+		document.getElementById('id_email').value = decrypt('{{ privk }}',document.getElementById('id_email').value );
+	});
 
-		var encrypted = publicKey.encrypt(document.getElementById('id_email').value, "RSA-OAEP", {
-					md: forge.md.sha256.create(),
-					mgf1: forge.mgf1.create()
-				});
-
-		var base64 = forge.util.encode64(encrypted);
-
-		console.log(base64);    
-		document.getElementById('id_email').value = base64;
-		return true; // return false to cancel form action
+	$('#id_form_person').submit(function() {
+		document.getElementById('id_email').value = encrypt('{{ pubk }}', document.getElementById('id_email').value )
 	});
 </script>
 {% endblock %}
