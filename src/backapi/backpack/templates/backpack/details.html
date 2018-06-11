@@ -21,11 +21,11 @@
 	</p>
 <script>
 	$(document).ready(function() {
-		document.getElementById('id_email').value = decrypt('{{ privk }}',document.getElementById('id_email').value );
+		document.getElementById('id_email').value = decrypt('{{ private_key }}',document.getElementById('id_email').value );
 	});
 
 	$('#id_form_person').submit(function() {
-		document.getElementById('id_email').value = encrypt('{{ pubk }}', document.getElementById('id_email').value )
+		document.getElementById('id_email').value = encrypt('{{ public_key }}', document.getElementById('id_email').value )
 	});
 </script>
 {% endblock %}

@@ -20,25 +20,25 @@ def generate_keys():
 	return key_pair.exportKey() , key_pair.publickey().exportKey()
 
 def get_public_key_backend():
-	f = open('public_key_backend.pem','r')
-	key = f.read()
-	f.close()
+	key = ''
+	with open('public_key_backend.pem', 'r') as f:
+		key = f.read()
 	return key
 
 def get_private_key_backend():
-	f = open('private_key_backend.pem','r')
-	key = f.read().replace('\n', '')
-	f.close()
+	key = ''
+	with open('private_key_backend.pem', 'r') as f:
+		key = f.read().replace('\n', '')
 	return key
 
 def get_public_key_client():
-	f = open('public_key_client.pem','r')
-	key = f.read().replace('\n', '')
-	f.close()
+	key = ''
+	with open('public_key_client.pem', 'r') as f:
+		key = f.read().replace('\n', '')
 	return key
 
 def get_private_key_client():
-	f = open('private_key_client.pem','r')
-	key = f.read()
-	f.close()
+	key = ''
+	with open('private_key_client.pem', 'r') as f:
+		key = f.read()
 	return key

@@ -23,7 +23,7 @@ def user_home(request):
 		person.email = rsa_lab.encrypt(rsa_lab.get_public_key_backend(), str.encode(person.email)).decode("utf-8")
 	context = {
 		'people': all_dudes,
-		'privk':rsa_lab.get_private_key_backend()
+		'private_key':rsa_lab.get_private_key_backend()
 	}
 	return render(request, 'backpack/user_home.html', context)
 
@@ -46,4 +46,4 @@ def private_details(request, id=None):
 		return redirect(reverse('user_home'))
 
 	form['email'].initial = rsa_lab.encrypt(rsa_lab.get_public_key_backend(), str.encode(form['email'].value())).decode("utf-8")
-	return render(request, 'backpack/details.html', {'form':form, 'privk':rsa_lab.get_private_key_backend(),'pubk':rsa_lab.get_public_key_client(), 'is_new':(id is None)})
+	return render(request, 'backpack/details.html', {'form':form, 'private_key':rsa_lab.get_private_key_backend(),'public_key':rsa_lab.get_public_key_client(), 'is_new':(id is None)})

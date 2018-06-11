@@ -18,6 +18,6 @@ function decrypt(privatePem, message)
 				md: forge.md.sha256.create(),
 				mgf1: forge.mgf1.create()
 			});
-	console.log(decryptMsg);
+
 	return decryptMsg;
 }
