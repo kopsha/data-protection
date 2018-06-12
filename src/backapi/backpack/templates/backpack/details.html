@@ -2,12 +2,15 @@
 
 {% block content %}
 
+{% load static %}
+<script  type="text/javascript"  src="{% static 'backpack/rsa_lab.js' %}"></script>  
+
 	<p align="right"><a class="btn btn-info" role="button" href="{% url 'user_home' %}">inapoi</a></p>
 	<p>
 		{% if is_new %}
-		<form action="" method="post">
+		<form action="" method="post" id = "id_form_person">
 		{% else %}
-		<form action="update/" method="post">
+		<form action="update/" method="post" id = "id_form_person">
 		{% endif %}
 			{% csrf_token %}
 			<table>
@@ -16,5 +19,13 @@
 			<input type="submit" class="btn btn-info" value="Salveaza" />
 		</form>
 	</p>
+<script>
+	$(document).ready(function() {
+		document.getElementById('id_email').value = decrypt('{{ private_key }}',document.getElementById('id_email').value );
+	});
 
+	$('#id_form_person').submit(function() {
+		document.getElementById('id_email').value = encrypt('{{ public_key }}', document.getElementById('id_email').value )
+	});
+</script>
 {% endblock %}
