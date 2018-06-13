@@ -1,9 +1,12 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.forms import ModelForm
 from django_cryptography.fields import encrypt
 
-import datetime
+from rest_framework import serializers
+
 
 class PrivatePerson(models.Model):
 	"""store sensitive information for a single person"""
@@ -36,3 +39,8 @@ class PrivatePersonForm(ModelForm):
 			'parent_facebook_url',
 			'address'
 		]
+
+class PrivatePersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrivatePerson
+        fields = '__all__'
