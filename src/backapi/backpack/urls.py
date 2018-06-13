@@ -1,8 +1,14 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-import backpack.views
+from rest_framework import routers
 
+import backpack.views
+from backpack.views import PrivateViewSet
+
+
+router = routers.DefaultRouter()
+router.register(r'api', PrivateViewSet)
 urlpatterns = [
 	path('private_person/<int:id>/', backpack.views.private_details, name='view_person'),
 	path('private_person/<int:id>/update/', backpack.views.private_details, name='update_person'),
@@ -13,3 +19,4 @@ urlpatterns = [
 	path('logout/', backpack.views.logout_view, name='logout'),
     path('', auth_views.LoginView.as_view(template_name='backpack/index.html'), name='index' ),
 ]
+urlpatterns += router.urls
