@@ -19,7 +19,7 @@ class PrivatePerson(models.Model):
 	parent_facebook_url = encrypt(models.CharField(max_length=254, default=''))
 
 	address = encrypt(models.CharField(max_length=254, default=''))
-	joined = encrypt(models.DateField(auto_now_add=True, auto_now=False))
+	joined = models.DateField(auto_now_add=True, auto_now=False)
 	last_modified = models.DateField(auto_now=True)
 
 	def is_recent(self):
