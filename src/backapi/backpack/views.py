@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import logout
 
-from backpack.models import PrivatePerson
-from backpack.models import PrivatePersonForm
+from rest_framework import viewsets, permissions
+
 from backpack import rsa_lab
+from backpack.models import PrivatePerson, PrivatePersonForm, PrivatePersonSerializer
+
 
 def index(request):
 	context = {}
@@ -47,3 +49,9 @@ def private_details(request, id=None):
 
 	form['email'].initial = rsa_lab.encrypt(rsa_lab.get_public_key_backend(), str.encode(form['email'].value())).decode("utf-8")
 	return render(request, 'backpack/details.html', {'form':form, 'private_key':rsa_lab.get_private_key_backend(),'public_key':rsa_lab.get_public_key_client(), 'is_new':(id is None)})
+
+
+class PrivateViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = PrivatePerson.objects.all()
+    serializer_class = PrivatePersonSerializer

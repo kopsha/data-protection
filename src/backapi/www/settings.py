@@ -14,6 +14,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DATAPRO_SECRET_KEY', 'von%4wdbkouvj_hj7%vq^xb@vq5^d@k%m(ychh%m$^(=ht1!qp')
 
+CRYPTOGRAPHY_KEY = os.environ.get('CRYPTOGRAPHY_KEY', 'rMu54SxnUnLKJQZPyQgFLs9bWBe5ht43gctk3QJjO4M=')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('GOING_LIVE', True)
 
@@ -29,6 +31,7 @@ SYSTEM_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [

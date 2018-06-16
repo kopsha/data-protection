@@ -1,9 +1,12 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.forms import ModelForm
 from django_cryptography.fields import encrypt
 
-import datetime
+from rest_framework import serializers
+
 
 class PrivatePerson(models.Model):
 	"""store sensitive information for a single person"""
@@ -16,7 +19,7 @@ class PrivatePerson(models.Model):
 	parent_facebook_url = encrypt(models.CharField(max_length=254, default=''))
 
 	address = encrypt(models.CharField(max_length=254, default=''))
-	joined = encrypt(models.DateField(auto_now_add=True, auto_now=False))
+	joined = models.DateField(auto_now_add=True, auto_now=False)
 	last_modified = models.DateField(auto_now=True)
 
 	def is_recent(self):
@@ -36,3 +39,8 @@ class PrivatePersonForm(ModelForm):
 			'parent_facebook_url',
 			'address'
 		]
+
+class PrivatePersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrivatePerson
+        fields = '__all__'
